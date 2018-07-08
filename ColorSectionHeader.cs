@@ -18,6 +18,7 @@ public class ColorSectionHeaderDrawer : DecoratorDrawer
 
     public override void OnGUI(Rect position)
     {
+        
         GUIStyle myStyle = new GUIStyle();
         
         // Size up and enbolden font (if necessary) to fill header space
