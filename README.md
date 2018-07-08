@@ -26,4 +26,5 @@ Simple colorful section headers for Unity
    * *This is **required** for the HeaderText to align with BG Colors.*
 4. Add any of the above attribute tags above where you want to place a ColorSectionHeader
 
-Find an example at this [Imgur](https://i.imgur.com/sE2L4Do.png) link: https://imgur.com/sE2L4Do
+Find an example in this [Imgur](https://i.imgur.com/sE2L4Do.png) screenshot: 
+![Alt text](https://i.imgur.com/sE2L4Do.png?raw=true "Title")
