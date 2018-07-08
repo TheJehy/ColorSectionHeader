@@ -19,4 +19,11 @@ Simple colorful section headers for Unity
 // I tried to comment the code as much as possible for ease of use and implementation choices.
 ```
 
-Find an example here: https://imgur.com/fePH9PT
+# Instructions
+1. Create an Editor folder in */Assets/Editor/*.
+2. Place ColorSectionHeader.cs in your */Assets/Scripts/* (or wherever you keep your scripts).
+3. Create a CustomEditor in */Assets/Editor/* for the Script(s) on which you want to use ColorSectionHeaders.
+   * *This is **required** for the HeaderText to align with BG Colors.*
+4. Add any of the above attribute tags above where you want to place a ColorSectionHeader
+
+Find an example at this [Imgur](https://i.imgur.com/sE2L4Do.png) link: https://imgur.com/sE2L4Do
