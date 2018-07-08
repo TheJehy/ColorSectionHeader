@@ -27,4 +27,5 @@ Simple colorful section headers for Unity
 4. Add any of the above attribute tags above where you want to place a ColorSectionHeader
 
 Find an example in this [Imgur](https://i.imgur.com/sE2L4Do.png) screenshot: 
+
 ![Alt text](https://i.imgur.com/sE2L4Do.png?raw=true "Title")
