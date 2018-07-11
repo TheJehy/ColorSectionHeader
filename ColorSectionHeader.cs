@@ -102,7 +102,8 @@ public class ColorSectionHeader : PropertyAttribute
     {
         this.text = text;
         this.height = height;
-
+        
+        // TODO: guarantee hex is safe to parse.
         if(hex[0] == '#')
         {
             if (!ColorUtility.TryParseHtmlString(hex, out bgColor))
