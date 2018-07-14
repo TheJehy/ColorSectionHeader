@@ -130,8 +130,7 @@ public class ColorSectionHeader : PropertyAttribute
         }
             
         if(hex.Length == 7) {
-            if(!ColorUtility.TryParseHtmlString(hex, out bgColor))
-            {
+            if(!ColorUtility.TryParseHtmlString(hex, out bgColor)) {
                 throw new System.Exception("BadHexColorCode");
             }
         }
