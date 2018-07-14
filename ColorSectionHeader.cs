@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 
 
@@ -6,49 +6,51 @@ using UnityEditor;
 [CustomPropertyDrawer(typeof(ColorSectionHeader))]
 public class ColorSectionHeaderDrawer : DecoratorDrawer
 {
-    ColorSectionHeader header
-    {
+    ColorSectionHeader header {
         get { return ((ColorSectionHeader)attribute); }
     }
 
-    public override float GetHeight()
-    {
+    public override float GetHeight() {
         return base.GetHeight() + header.height;
     }
 
     public override void OnGUI(Rect position)
     {
-        
-        GUIStyle myStyle = new GUIStyle();
-        
-        // Size up and enbolden font (if necessary) to fill header space
-        myStyle.fontSize = (header.height <= 10) ? (int)header.height + 3 : (int)header.height + 1;
-        if(myStyle.fontSize < 18) // Small texts display better when bold
-            myStyle.fontStyle = FontStyle.Bold;
+        GUIStyle headerTextStyle = new GUIStyle();
 
-        // Ensure proper alignment for next step
-        myStyle.alignment = TextAnchor.UpperLeft;
+        // Increase font size to fill color rect
+        headerTextStyle.fontSize = (header.height <= 10) ? ((int)header.height + 3) : ((int)header.height + 1);
 
-        // Center vertically and equalize horizontal:vertical padding
-        myStyle.padding.top = (header.height <= 10) ? (int)header.height/3 : (int)header.height / 3;
-        myStyle.padding.left = -(int)header.height / 5;
-
-        // Label Color Dark or Light
-        if(header.bgColor.grayscale > 0.65f)
-        { myStyle.normal.textColor = new Color(0, 0, 0, 0.5f); }
-        else
-        { myStyle.normal.textColor = new Color(1, 1, 1, 0.8f); }
+        // Small text displays better when bold
+        if (headerTextStyle.fontSize < 18) {
+            headerTextStyle.fontStyle = FontStyle.Bold;
+        }
+        headerTextStyle.alignment = TextAnchor.UpperLeft;
+        headerTextStyle.padding.top = (int)header.height / 3;
+        headerTextStyle.padding.left = -(int)header.height / 5;
         
-        // Extra rectangle width (-11 fills a zero depth inspector inspector)
-        float rectStretch = 0;
-        // Draw background (position.height-2 equalizes spacing between inspector items above and below)
-        EditorGUI.DrawRect(new Rect(position.x- rectStretch, position.y, position.width+ rectStretch, position.height-2), header.bgColor);
-        // Use the spacer rect for the text label
-        Rect r = GUILayoutUtility.GetLastRect();
-        EditorGUI.LabelField(new Rect(r.x-(rectStretch + 4*myStyle.padding.left), r.y, r.width, r.height), header.text, myStyle);
+        if(header.bgColor.grayscale > 0.65f) {
+            headerTextStyle.normal.textColor = new Color(0, 0, 0, 0.5f); // dark label
+        }
+        else {
+            headerTextStyle.normal.textColor = new Color(1, 1, 1, 0.8f); // light label
+        }
+        
+        float rectStretch = 0; // Set to -11 to fill width of inspector
+        EditorGUI.DrawRect(new Rect(position.x - rectStretch, position.y, position.width + rectStretch, position.height - 2), header.bgColor);
+        
+        Rect headerLabel = GUILayoutUtility.GetLastRect();
+        headerLabel = new Rect(headerLabel.x - (rectStretch + 4 * headerTextStyle.padding.left), headerLabel.y, 
+                               headerLabel.width, headerLabel.height);
+
+        // Draw text over color background
+        EditorGUI.LabelField(headerLabel, header.text, headerTextStyle);
     }
 }
 
+/// <summary>
+/// Displays a colored rectangle and header text. Used for organizing custom inspectors.
+/// </summary>
 public class ColorSectionHeader : PropertyAttribute
 {
     /// <summary>
@@ -68,7 +70,7 @@ public class ColorSectionHeader : PropertyAttribute
     /// Color32(bytes) constructor.
     /// </summary>
     /// <param name="text">Header text</param>
-    /// <param name="height">Pixel?Unit? height of the section.</param>
+    /// <param name="height">Pixel height of the section.</param>
     /// <param name="r">BGColor red value [0, 255].</param>
     /// <param name="g">BGColor green value [0, 255].</param>
     /// <param name="b">BGColor blue value [0, 255].</param>
@@ -82,7 +84,7 @@ public class ColorSectionHeader : PropertyAttribute
     /// Color(floats) constructor.
     /// </summary>
     /// <param name="text">Header text</param>
-    /// <param name="height">Pixel?Unit? height of the section.</param>
+    /// <param name="height">Pixel height of the section.</param>
     /// <param name="r">BGColor red value [0, 1].</param>
     /// <param name="g">BGColor green value [0, 1].</param>
     /// <param name="b">BGColor blue value [0, 1].</param>
@@ -96,22 +98,33 @@ public class ColorSectionHeader : PropertyAttribute
     /// Color(hex) constructor.
     /// </summary>
     /// <param name="text">Header text</param>
-    /// <param name="height">Pixel?Unit? height of the section.</param>
+    /// <param name="height">Pixel height of the section.</param>
     /// <param name="hex">BGColor hex value [#123456 or 123456].</param>
     public ColorSectionHeader(string text, float height, string hex)
     {
         this.text = text;
         this.height = height;
-        
-        // TODO: guarantee hex is safe to parse.
-        if(hex[0] == '#')
+
+        if(hex.Length >= 6 && hex.Length <= 7)
         {
-            if (!ColorUtility.TryParseHtmlString(hex, out bgColor))
-                bgColor = Color.white; // Use white if can't parse hexidecimal
-        } else if(hex.Length == 6)
+            if (hex[0] == '#')
+            {
+                if (!ColorUtility.TryParseHtmlString(hex, out bgColor))
+                    bgColor = Color.white; // Use white if can't parse hexidecimal
+            }
+            else if (hex.Length == 6)
+            {
+                if (!ColorUtility.TryParseHtmlString('#' + hex, out bgColor))
+                    bgColor = Color.white;
+            }
+            else
+            {
+                bgColor = Color.white;
+            }
+        }
+        else
         {
-            if (!ColorUtility.TryParseHtmlString('#' + hex, out bgColor))
-                bgColor = Color.white; // Use white if can't parse hexidecimal
+            bgColor = Color.white;
         }
     }
 }
