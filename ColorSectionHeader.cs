@@ -81,7 +81,7 @@ public class ColorSectionHeader : PropertyAttribute
     /// </summary>
     public ColorSectionHeader()
     {
-        text = "Test Header";
+        text = "Uninitialized Header";
         height = 15;
         bgColor = Color.white;
     }
@@ -123,27 +123,17 @@ public class ColorSectionHeader : PropertyAttribute
     {
         this.text = text;
         this.height = height;
+        bgColor = Color.white;
 
-        if(hex.Length >= 6 && hex.Length <= 7)
-        {
-            if (hex[0] == '#')
-            {
-                if (!ColorUtility.TryParseHtmlString(hex, out bgColor))
-                    bgColor = Color.white; // Use white if can't parse hexidecimal
-            }
-            else if (hex.Length == 6)
-            {
-                if (!ColorUtility.TryParseHtmlString('#' + hex, out bgColor))
-                    bgColor = Color.white;
-            }
-            else
-            {
-                bgColor = Color.white;
-            }
+        if (hex.Length == 6) {
+            hex = '#' + hex;
         }
-        else
-        {
-            bgColor = Color.white;
+            
+        if(hex.Length == 7) {
+            if(!ColorUtility.TryParseHtmlString(hex, out bgColor))
+            {
+                throw new System.Exception("BadHexColorCode");
+            }
         }
     }
 }
