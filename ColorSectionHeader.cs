@@ -19,7 +19,9 @@ public class ColorSectionHeaderDrawer : DecoratorDrawer
         GUIStyle headerTextStyle = new GUIStyle();
 
         // Increase font size to fill color rect
-        headerTextStyle.fontSize = (header.height <= 10) ? ((int)header.height + 3) : ((int)header.height + 1);
+        headerTextStyle.fontSize = (header.height <= 10) ?
+            (int)header.height + 3 : 
+            (int)header.height + 1;
 
         // Small text displays better when bold
         if (headerTextStyle.fontSize < 18) {
@@ -31,17 +33,24 @@ public class ColorSectionHeaderDrawer : DecoratorDrawer
         
         if(header.bgColor.grayscale > 0.65f) {
             headerTextStyle.normal.textColor = new Color(0, 0, 0, 0.5f); // dark label
-        }
-        else {
+        } else {
             headerTextStyle.normal.textColor = new Color(1, 1, 1, 0.8f); // light label
         }
         
         float rectStretch = 0; // Set to -11 to fill width of inspector
-        EditorGUI.DrawRect(new Rect(position.x - rectStretch, position.y, position.width + rectStretch, position.height - 2), header.bgColor);
+        EditorGUI.DrawRect( new Rect(
+            position.x - rectStretch, 
+            position.y, 
+            position.width + rectStretch, 
+            position.height - 2),
+            color: header.bgColor);
         
         Rect headerLabel = GUILayoutUtility.GetLastRect();
-        headerLabel = new Rect(headerLabel.x - (rectStretch + 4 * headerTextStyle.padding.left), headerLabel.y, 
-                               headerLabel.width, headerLabel.height);
+        headerLabel = new Rect(
+            headerLabel.x - (rectStretch + 4 * headerTextStyle.padding.left), 
+            headerLabel.y, 
+            headerLabel.width, 
+            headerLabel.height);
 
         // Draw text over color background
         EditorGUI.LabelField(headerLabel, header.text, headerTextStyle);
@@ -49,7 +58,8 @@ public class ColorSectionHeaderDrawer : DecoratorDrawer
 }
 
 /// <summary>
-/// Displays a colored rectangle and header text. Used for organizing custom inspectors.
+/// Displays a colored rectangle and header text.
+/// Used for organizing custom inspectors.
 /// </summary>
 public class ColorSectionHeader : PropertyAttribute
 {
@@ -66,6 +76,15 @@ public class ColorSectionHeader : PropertyAttribute
     /// </summary>
     public Color bgColor;
 
+    /// <summary>
+    /// Default constructor for testing.
+    /// </summary>
+    public ColorSectionHeader()
+    {
+        text = "Test Header";
+        height = 15;
+        bgColor = Color.white;
+    }
     /// <summary>
     /// Color32(bytes) constructor.
     /// </summary>
