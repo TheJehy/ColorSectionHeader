@@ -16,7 +16,6 @@ Simple colorful section headers for Unity
 /// Font is emboldened when text size is small (default is <18pt).
 /// Font is padded to center (roughly) vertically. - Any tips on improving this would be helpful.
 
-// I tried to comment the code as much as possible for ease of use and implementation choices.
 ```
 
 # Instructions
