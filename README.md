@@ -1,5 +1,6 @@
 # ColorSectionHeader
-Simple colorful section headers for Unity
+Simple colorful section headers for Unity.
+Includes XML documentation for ease of use.
 ```CS
 /// Implement quickly with your choice of digital color format:
 /// Hex, Web-Format Hex, 8Bit RGB, Arithmetic RGB
