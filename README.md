@@ -26,6 +26,6 @@ Includes XML documentation for ease of use.
    * *A custom editor is **required** for the HeaderText to align with BG Colors.*
 4. Add any of the above attribute tags above where you want to place a ColorSectionHeader
 
-Find an example in this [Imgur](https://i.imgur.com/sE2L4Do.png) screenshot: 
+Find an example in this [Imgur](https://i.imgur.com/SMhF3gL.png) screenshot: 
 
-![Alt text](https://i.imgur.com/sE2L4Do.png?raw=true "Title")
+![Alt text](https://i.imgur.com/SMhF3gL.png?raw=true "Title")
