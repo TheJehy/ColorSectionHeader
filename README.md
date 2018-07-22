@@ -22,7 +22,7 @@ Includes XML documentation for ease of use.
 # Instructions
 1. Create an Editor folder in */Assets/Editor/*.
 2. Place ColorSectionHeader.cs in your */Assets/Scripts/* (or wherever you keep your scripts).
-3. Create a CustomEditor in */Assets/Editor/* for the Script(s) on which you want to use ColorSectionHeaders.
+3. Create a CustomEditor in */Assets/Editor/* for the script(s) on which you want to use ColorSectionHeaders.
    * *This is **required** for the HeaderText to align with BG Colors.*
 4. Add any of the above attribute tags above where you want to place a ColorSectionHeader
 
